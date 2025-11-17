@@ -1,4 +1,4 @@
-# Generative vs. Contrastive Federated Self-Supervised Learning
+# Generative vs. Contrastive Federated Self-Supervised Learning: A Critical Analysis of Objective-Task Misalignment in Pneumonia Detection from Chest X-ray Images
 
 Official implementation of **Federated Self-Supervised Learning for Medical Imaging** comparing generative (FedMAE) and contrastive (FedCon) approaches using Swin Transformer V2.
 
@@ -186,3 +186,4 @@ MIT License
 
 - Swin Transformer V2 implementation from [timm](https://github.com/huggingface/pytorch-image-models)
 - Federated learning framework using [Flower](https://flower.dev/)
+
