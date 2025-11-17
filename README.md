@@ -38,7 +38,7 @@ chest_xray/
     └── PNEUMONIA/
 ```
 
-### RSNA Pneumonia Detection
+### RSNA Pneumonia Dataset
 ```
 RSNA/
 ├── Training/
@@ -186,4 +186,5 @@ MIT License
 
 - Swin Transformer V2 implementation from [timm](https://github.com/huggingface/pytorch-image-models)
 - Federated learning framework using [Flower](https://flower.dev/)
+
 
