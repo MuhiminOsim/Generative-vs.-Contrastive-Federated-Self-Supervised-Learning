@@ -1,0 +1,26 @@
+# Fine-tuning on RSNA Pneumonia Detection Dataset (Paper Configuration)
+
+experiment_name: "finetune_rsna"
+model_name: "swinv2_tiny_window8_256"
+num_classes: 1  # Binary classification with BCEWithLogitsLoss
+
+# Pretrained model
+pretrained_model_path: "checkpoints/fedcon_pretrain_final.pth"  # Change to fedmae or null for scratch
+
+# Data paths (pass via command line or set absolute paths)
+dataset: "rsna"
+data_path: "RSNA/Training"  # Path to RSNA images (.png or .dcm files)
+csv_path: "RSNA/stage2_train_metadata.csv"  # Path to RSNA metadata CSV
+image_size: 256
+
+# Training params (matching paper exactly)
+epochs: 35  # Fine-tuning epochs
+batch_size: 32
+encoder_learning_rate: 1.0e-5  # Differential LR for encoder (paper uses 1e-5)
+classifier_learning_rate: 1.0e-3  # Differential LR for classifier head (paper uses 1e-3)
+weight_decay: 1.0e-4
+train_split: 0.8  # Train/test split ratio
+num_unfrozen_stages: 2  # Unfreeze last 2 stages (deep fine-tuning strategy from paper)
+
+# Output
+output_model_path: "final_finetuned_rsna_model.pth"

@@ -1,0 +1,40 @@
+# Federated Contrastive (FedCon) Pre-training Configuration
+
+experiment_name: "fedcon_pretrain"
+ssl_method: "fedcon"
+model_name: "swinv2_tiny_window8_256"
+
+# Model params
+embed_dim: 768
+projection_dim: 128
+projection_hidden_dim: 2048  # Hidden dimension for 2-layer MLP projection head
+temperature: 0.1  # Contrastive temperature τ
+
+# Federated params
+num_clients: 2
+num_rounds: 20  # Communication rounds (paper uses 20)
+local_epochs: 2  # E=2 local epochs per round
+agg_method: "fedprox"  # Using FedProx as in paper
+mu: 0.01  # FedProx regularization parameter
+
+# Client data configuration (paths passed via command line)
+clients_data:
+  client_1:
+    name: "kaggle"
+    path: "chest_xray/train"  # Kaggle dataset path (5,216 images)
+  client_2:
+    name: "rsna"
+    path: "RSNA/Training"  # RSNA images path (26,684 images)
+    csv_path: "RSNA/stage2_train_metadata.csv"  # RSNA CSV path
+
+# Training params (matching paper exactly)
+batch_size: 64  # Local batch size
+learning_rate: 1.0e-4  # AdamW learning rate
+weight_decay: 0.05  # Weight decay
+image_size: 256
+num_workers: 4
+
+# Checkpointing
+save_every: 10  # Save checkpoint every N rounds
+checkpoint_dir: "checkpoints"
+output_dir: "checkpoints"

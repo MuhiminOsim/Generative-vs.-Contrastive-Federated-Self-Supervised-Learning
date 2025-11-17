@@ -1,0 +1,25 @@
+# Fine-tuning from Scratch (Supervised Baseline)
+# Train without any pre-training - supervised from random initialization
+
+experiment_name: "finetune_scratch"
+model_name: "swinv2_tiny_window8_256"
+num_classes: 1  # Binary classification with BCEWithLogitsLoss
+
+# Pretrained model - set to null for training from scratch
+pretrained_model_path: null  # No pre-training
+
+# Data paths
+dataset: "kaggle"  # Dataset type: 'kaggle' or 'rsna'
+data_path: "chest_xray"  # Path to dataset root
+image_size: 256
+
+# Training params (matching paper's supervised baseline)
+epochs: 100  # More epochs needed when training from scratch
+batch_size: 32
+encoder_learning_rate: 1.0e-4  # Higher LR for random initialization
+classifier_learning_rate: 1.0e-3  # Classifier head LR
+weight_decay: 1.0e-4
+num_unfrozen_stages: -1  # -1 means all stages unfrozen (full training)
+
+# Output
+output_model_path: "final_scratch_model.pth"

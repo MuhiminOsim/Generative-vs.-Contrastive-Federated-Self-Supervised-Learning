@@ -1,0 +1,24 @@
+# Fine-tuning on Kaggle Pneumonia Dataset (Paper Configuration)
+
+experiment_name: "finetune_kaggle"
+model_name: "swinv2_tiny_window8_256"
+num_classes: 1  # Binary classification with BCEWithLogitsLoss
+
+# Pretrained model
+pretrained_model_path: "checkpoints/fedcon_pretrain_final.pth"  # Change to fedmae or null for scratch
+
+# Data paths (pass via command line or set absolute paths)
+dataset: "kaggle"  # Dataset type: 'kaggle' or 'rsna'
+data_path: "chest_xray"  # Path to dataset root (contains train/test subdirs with NORMAL/PNEUMONIA)
+image_size: 256
+
+# Training params (matching paper exactly)
+epochs: 35  # Fine-tuning epochs
+batch_size: 32
+encoder_learning_rate: 1.0e-5  # Differential LR for encoder (paper uses 1e-5)
+classifier_learning_rate: 1.0e-3  # Differential LR for classifier head (paper uses 1e-3)
+weight_decay: 1.0e-4
+num_unfrozen_stages: 2  # Unfreeze last 2 stages (deep fine-tuning strategy from paper)
+
+# Output
+output_model_path: "final_finetuned_model.pth"
